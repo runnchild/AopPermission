@@ -2,9 +2,8 @@ apply plugin: 'com.rongc.app'
 apply plugin: 'android-aspectjx'
 
 aspectjx {
-    exclude 'androidx.*'
-    include 'com.rongc.*'
-    include 'com.psnlove.*'
+    include 'com.rongc.permission'
+    include 'com.rongc.aoppermission'
 }
 dependencies {
     implementation project(':lib')

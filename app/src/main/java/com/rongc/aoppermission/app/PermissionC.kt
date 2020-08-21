@@ -14,8 +14,8 @@ class PermissionC: IPermission {
         return false
     }
 
-    override fun request(permission: Array<String>, granted: () -> Unit, denied: () -> Unit) {
-        granted()
-        denied()
+    override fun request(permission: Array<String>, granted: (Array<String>) -> Unit, denied: (Array<String>) -> Unit) {
+        granted(permission)
+        denied(permission)
     }
 }

@@ -14,7 +14,7 @@ class PermissionChecker {
             return iPermission?.isGranted(permission) ?:false
         }
 
-        fun request(permission: Array<String>, granted: () -> Unit, denied: () -> Unit) {
+        fun request(permission: Array<String>, granted: (Array<String>) -> Unit, denied: (Array<String>) -> Unit) {
             iPermission?.request(permission, granted, denied)
         }
     }

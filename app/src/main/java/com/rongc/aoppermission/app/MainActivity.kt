@@ -3,8 +3,11 @@ package com.rongc.aoppermission.app
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.constant.PermissionConstants
+import com.rongc.habit.utils.Compat.logi
 import com.rongc.permission.PermissionChecker
 import com.rongc.permission.annotation.NeedPermission
+import com.rongc.permission.annotation.OnDenied
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,8 +18,13 @@ class MainActivity : AppCompatActivity() {
         check()
     }
 
-    @NeedPermission(["heeello"])
+    @NeedPermission([PermissionConstants.CAMERA, PermissionConstants.PHONE])
     fun check() {
         Log.e("MainActivity", "Aspect check invoke")
+    }
+
+    @OnDenied
+    fun onDenied(denied: Array<String>) {
+        "onDenied$denied".logi()
     }
 }

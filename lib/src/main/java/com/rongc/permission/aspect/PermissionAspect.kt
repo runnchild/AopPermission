@@ -3,6 +3,7 @@ package com.rongc.permission.aspect
 import android.util.Log
 import com.rongc.permission.PermissionChecker
 import com.rongc.permission.annotation.NeedPermission
+import com.rongc.permission.annotation.OnDenied
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -16,15 +17,6 @@ class PermissionAspect {
 
     @Pointcut("execution(@com.rongc.permission.annotation.NeedPermission * *(..)) && @annotation(needPermission)")
     fun pointcutOnNeedPermissionMethod(needPermission: NeedPermission) {
-    }
-
-    @Pointcut(
-        "execution(* android.app.Activity.onCreate(..)) && !within(android.support.v7.app.AppCompatActivity)" +
-                " && !within(android.support.v4.app.FragmentActivity)" +
-                " && !within(android.support.v4.app.BaseFragmentActivityDonut)" +
-                " && !within(com.hujiang.permissiondispatcher.ShadowPermissionActivity)"
-    )
-    fun pointcutOnActivityCreate() {
     }
 
     /**
@@ -41,7 +33,19 @@ class PermissionAspect {
         PermissionChecker.request(permissions, {
             joinPoint.proceed()
         }, {
-            println("Aspect method permission denied")
+            val deniedPermissions = it
+            val clz = joinPoint.`this`
+            println("${clz}Aspect method permission denied")
+            clz::class.java.declaredMethods.forEach { method ->
+                if (null != method.getAnnotation(OnDenied::class.java)) {
+                    method.isAccessible = true
+                    if (method.parameterAnnotations.isEmpty()) {
+                        method.invoke(clz)
+                    } else if (method.parameterAnnotations[0] is Array<*>) {
+                        method.invoke(clz, deniedPermissions)
+                    }
+                }
+            }
         })
     }
 }

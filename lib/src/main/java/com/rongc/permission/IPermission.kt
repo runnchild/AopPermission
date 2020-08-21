@@ -8,5 +8,5 @@ package com.rongc.permission
  */
 interface IPermission {
     fun isGranted(permission: Array<String>): Boolean
-    fun request(permission: Array<String>, granted: () -> Unit, denied: () -> Unit)
+    fun request(permission: Array<String>, granted: (Array<String>) -> Unit, denied: (Array<String>) -> Unit)
 }
