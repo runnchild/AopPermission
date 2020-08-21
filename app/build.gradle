@@ -1,0 +1,12 @@
+apply plugin: 'com.rongc.app'
+apply plugin: 'android-aspectjx'
+
+aspectjx {
+    exclude 'androidx.*'
+    include 'com.rongc.*'
+    include 'com.psnlove.*'
+}
+dependencies {
+    implementation project(':lib')
+    implementation "com.psnlove:habit:1.0"
+}

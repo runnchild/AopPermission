@@ -1,0 +1,5 @@
+apply plugin: 'com.rongc.lib'
+
+dependencies {
+    api 'org.aspectj:aspectjrt:1.9.5'
+}
