@@ -2,10 +2,12 @@ apply plugin: 'com.rongc.app'
 apply plugin: 'android-aspectjx'
 
 aspectjx {
+    // 需要include自己的包和切面代码所在的包
     include 'com.rongc.permission'
     include 'com.rongc.aoppermission'
 }
+
 dependencies {
     implementation project(':lib')
-    implementation "com.psnlove:habit:1.0"
+    implementation 'com.blankj:utilcodex:1.29.0'
 }

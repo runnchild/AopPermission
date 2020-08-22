@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.constant.PermissionConstants
-import com.rongc.habit.utils.Compat.logi
+import com.blankj.utilcode.util.LogUtils
 import com.rongc.permission.PermissionChecker
 import com.rongc.permission.annotation.NeedPermission
 import com.rongc.permission.annotation.OnDenied
@@ -25,6 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     @OnDenied
     fun onDenied(denied: Array<String>) {
-        "onDenied$denied".logi()
+        LogUtils.e("onDenied$denied")
     }
 }
